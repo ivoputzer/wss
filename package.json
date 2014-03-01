@@ -1,7 +1,7 @@
 {
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com>",
   "name": "wss",
-  "description": "wrapper upon well known ws module that provides server api only",
+  "description": "Wrapper made upon the well known ws module that provides server API only.",
   "version": "0.0.1",
   "keywords": [
     "Hixie",

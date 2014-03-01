@@ -1,0 +1,35 @@
+{
+  "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com>",
+  "name": "wss",
+  "description": "wrapper upon well known ws module that provides server api only",
+  "version": "0.0.1",
+  "keywords": [
+    "Hixie",
+    "HyBi",
+    "Push",
+    "RFC-6455",
+    "WebSocket",
+    "WebSocketServer",
+    "real-time"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ivoputzer/wss.git"
+  },
+  "scripts": {
+  },
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "dependencies": {
+    "ws": "*"
+  },
+  "devDependencies": {
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivoputzer/wss/issues"
+  },
+  "homepage": "https://github.com/ivoputzer/wss"
+}

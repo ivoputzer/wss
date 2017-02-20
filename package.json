@@ -18,14 +18,16 @@
     "url": "git://github.com/ivoputzer/wss.git"
   },
   "scripts": {
+    "test": "m.test"
   },
   "engines": {
     "node": ">=0.4.0"
   },
   "dependencies": {
-    "ws": "*"
+    "ws": "^2.0.3"
   },
   "devDependencies": {
+    "m.test": "0.0.53"
   },
   "license": "MIT",
   "bugs": {

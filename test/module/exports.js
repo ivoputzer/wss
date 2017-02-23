@@ -1,6 +1,6 @@
 /* global test */
 
-const {ok, equal} = require('assert')
+const {ok, equal, throws} = require('assert')
 
 test('module.exports', function () {
   const Server = require('../..')
@@ -14,11 +14,15 @@ test('module.exports', function () {
     equal(Server.name, WebSocket.Server.name)
   })
 
-  test('.createServerFrom(net.Server)', function () {
+  test('.createServerFrom(http[s].Server)', function () {
     const {createServerFrom} = require('../..')
 
     test('is callable', function () {
       equal(typeof createServerFrom, 'function')
+    })
+
+    test('throws on empty args', function () {
+      throws(createServerFrom, /must provide server./)
     })
 
     test('forks http.Server', function () {

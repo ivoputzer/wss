@@ -4,7 +4,8 @@ module.exports = Server
 module.exports.createServerFrom = createServerFrom
 module.exports.createServer = createServer
 
-function createServerFrom (server) {
+function createServerFrom (server = new Error('must provide server.')) {
+  if (server instanceof Error) throw server
   return new Server({server})
 }
 

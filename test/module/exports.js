@@ -1,9 +1,10 @@
 /* global test */
-const WebSocket = require('ws')
+
 const {ok, equal} = require('assert')
 
 test('module.exports', function () {
   const Server = require('../..')
+  const WebSocket = require('ws')
 
   test('is callable', function () {
     equal(typeof Server, 'function')
@@ -20,32 +21,61 @@ test('module.exports', function () {
       equal(typeof createServerFrom, 'function')
     })
 
-    test('forks net.Server', function (done) {
-      const {createServer} = require('net')
-      const server = createServer().listen(0, close(done))
-      ok(createServerFrom(server) instanceof WebSocket.Server)
-    })
-
-    test('forks http.Server', function (done) {
+    test('forks http.Server', function () {
       const {createServer} = require('http')
-      const server = createServer().listen(0, close(done))
-      ok(createServerFrom(server) instanceof WebSocket.Server)
+
+      test('is instance of ws.Server', function (done) {
+        createServer()
+          .listen(0, function () {
+            ok(createServerFrom(this) instanceof WebSocket.Server)
+            this.close(done)
+          })
+      })
+
+      test.timeout('binds connectionListener', function (done) {
+        createServer()
+          .listen(0, function () {
+            const {address, port} = this.address()
+            createServerFrom(this)
+              .on('connection', (ws) => {
+                ws.close()
+                this.close(done)
+              })
+            return new WebSocket(`ws://${address}:${port}`)
+          })
+      }, 5000)
     })
 
-    test('forks https.Server', function (done) {
+    test('forks https.Server', function () {
       const {createCertificate} = require('pem')
       const {createServer} = require('https')
-      createCertificate({days: 1, selfSigned: true}, (err, {serviceKey: key, certificate: cert}) => {
-        if (err) done(err)
-        const server = createServer({key, cert}).listen(0, close(done))
-        ok(createServerFrom(server) instanceof WebSocket.Server)
-      })
-    })
 
-    function close (done) {
-      return function () {
-        this.close(done)
-      }
-    }
+      test('is instance of ws.Server', function (done) {
+        createCertificate({days: 1, selfSigned: true}, (err, {serviceKey: key, certificate: cert}) => {
+          if (err) done(err)
+          createServer({key, cert})
+            .listen(0, function () {
+              ok(createServerFrom(this) instanceof WebSocket.Server)
+              this.close(done)
+            })
+        })
+      })
+
+      test.timeout('binds connectionListener', function (done) {
+        createCertificate({days: 1, selfSigned: true}, (err, {serviceKey: key, certificate: cert}) => {
+          if (err) done(err)
+          createServer({key, cert})
+            .listen(0, function () {
+              const {address, port} = this.address()
+              createServerFrom(this)
+                .on('connection', (ws) => {
+                  ws.close()
+                  this.close(done)
+                })
+              return new WebSocket(`wss://${address}:${port}`, {rejectUnauthorized: false})
+            })
+        })
+      }, 5000)
+    })
   })
 })

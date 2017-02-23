@@ -4,25 +4,36 @@ module.exports = Server
 module.exports.createServerFrom = createServerFrom
 module.exports.createServer = createServer
 
-function createServerFrom (server = new Error('must provide server.')) {
-  if (server instanceof Error) throw server
+function createServerFrom (server) {
+  if (typeof server === 'undefined') throw new Error('must provide server')
   return new Server({server})
 }
 
-function createServer (connectionListener = Function.prototype) {
-  const {STATUS_CODES, createServer} = require('http')
-  const server = createServer(requestListener)
-  // const listen = server.listen.bind(server) // ready to hook
-  createServerFrom(server)
-    .on('connection', connectionListener)
-    // how to attach subsequent connection listeners at this point?
-  return server // assign(server, {allowHalfOpen: false, listen})
+function createServer (options = {}, connectionListener, {assign} = Object) {
+  if (typeof options === 'function') {
+    connectionListener = options
+    options = {} // http server
+  }
+
+  const web = createServerFrom(options)
+  const wss = createServerFrom(web)
+
+  if (connectionListener) wss.on('connection', connectionListener)
+  return assign(web, {allowHalfOpen: false}) // how to attach subsequent connection listeners at this point?
+
+  function createServerFrom (options) {
+    return options.key && options.cert || options.pfx
+      ? require('https').createServer(options, requestListener)
+      : require('http').createServer(requestListener)
+  }
+
   function requestListener (req, res) {
+    const {STATUS_CODES: {'426': upgrade}} = require('http')
     res.writeHead(426, {
-      'content-length': STATUS_CODES[426].length,
+      'content-length': upgrade.length,
       'content-type': 'text/plain'
     })
-    res.end(STATUS_CODES[426])
+    res.end(upgrade)
   }
 }
 

@@ -28,12 +28,12 @@ function createServer (options = {}, connectionListener, {assign} = Object) {
   }
 
   function requestListener (req, res) {
-    const {STATUS_CODES: {'426': upgrade}} = require('http')
+    const {STATUS_CODES: {'426': status}} = require('http')
     res.writeHead(426, {
-      'content-length': upgrade.length,
+      'content-length': status.length,
       'content-type': 'text/plain'
     })
-    res.end(upgrade)
+    res.end(status)
   }
 }
 

@@ -3,4 +3,5 @@ lib/
 
 *.DS_Store
 *.log
+*.tgz
 *.todo

@@ -1,27 +1,41 @@
 const {Server} = require('ws')
 
-module.exports = Server
+Server.prototype.listening = false
+Server.prototype.listen = function (...args) {
+  return this._server
+    .listen(...args)
+    .once('listening', () => {
+      this.listening = true
+    })
+}
+Server.prototype.close = function (...args) {
+  if (this.clients) {
+    for (const client of this.clients) client.terminate()
+  }
+  this._ultron.destroy()
+  this._ultron = null
+  return this._server.close(...args)
+}
+module.exports = Server // v 1
 module.exports.createServerFrom = createServerFrom
 module.exports.createServer = createServer
 
-function createServerFrom (server) {
+function createServerFrom (server, connectionListener) {
   if (typeof server === 'undefined') throw new Error('must provide server')
-  return new Server({server})
+  const wss = new Server({server})
+  return connectionListener
+    ? wss.on('connection', connectionListener)
+    : wss
 }
 
-function createServer (options = {}, connectionListener, {assign} = Object) {
+function createServer (options = {}, connectionListener) {
   if (typeof options === 'function') {
     connectionListener = options
-    options = {} // http server
+    options = {}
   }
-
-  const web = createServerFrom(options)
-  const wss = createServerFrom(web)
-
-  if (connectionListener) wss.on('connection', connectionListener)
-  return assign(web, {allowHalfOpen: false}) // how to attach subsequent connection listeners at this point?
-
-  function createServerFrom (options) {
+  const server = createServerFor(options)
+  return createServerFrom(server, connectionListener) // v 2
+  function createServerFor (options) {
     return options.key && options.cert || options.pfx
       ? require('https').createServer(options, requestListener)
       : require('http').createServer(requestListener)

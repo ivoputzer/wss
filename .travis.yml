@@ -1,0 +1,21 @@
+language: node_js
+git:
+  depth: 1
+node_js:
+- 7.5
+- 7.0
+- 6.9
+- 6.0
+before_script:
+- npm run lint -s
+script:
+- npm run test -s
+deploy:
+  provider: npm
+  skip_cleanup: false
+  email: ivo.putzer@gmail.com
+  api_key:
+    secure: gyWDhVvSjq4n7QGyIv2CkA/y3WWo1AuGhArEO2pTs5lAU4OP2eBxCDoPA9xkawMDNE84iVIjsOThgOckY46f49xC5XBQQqpw7bd1iVlogAB8WzWh78xpPVPmY+VwbGA7VhD9bZr4nPhURtvP2aSL+n5a+Y0dIb0nQ39w1gDcrhY=
+  on:
+    repo: ivoputzer/wss
+    branch: master

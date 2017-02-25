@@ -1,7 +1,7 @@
 # wss
 [![travis](https://img.shields.io/travis/ivoputzer/wss.svg?style=flat-square)](https://travis-ci.org/ivoputzer/wss) [![npm-dependencies](https://img.shields.io/badge/dependencies-none-blue.svg?style=flat-square&colorB=44CC11)](package.json) [![standard-js](https://img.shields.io/badge/coding%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/) [![npm-package-quality](http://npm.packagequality.com/shield/wss.svg?style=flat-square&colorB=44CC11)](http://packagequality.com/#?package=wss) [![npm-node-version](https://img.shields.io/badge/node-6%2B-blue.svg?style=flat-square)](https://nodejs.org/docs/v6.0.0/api) [![npm-version](https://img.shields.io/npm/v/wss.svg?style=flat-square&colorB=007EC6)](https://www.npmjs.com/package/wss) [![npm-license](https://img.shields.io/npm/l/wss.svg?style=flat-square&colorB=007EC6)](https://spdx.org/licenses/MIT)
 
-wrapper built upon [ws](https://www.npmjs.org/package/ws) that provides standard server api only.
+wrapper built upon [ws](https://www.npmjs.org/package/ws) module that provides standard server api only.
 
 #### usage with server creation
 

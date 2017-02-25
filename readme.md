@@ -1,5 +1,5 @@
 # wss
-[![travis](https://img.shields.io/travis/ivoputzer/wss.svg?style=flat-square)](https://travis-ci.org/ivoputzer/wss) [![npm-dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-blue.svg?style=flat-square&colorB=44CC11)](package.json) [![standard-js](https://img.shields.io/badge/coding%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/) [![npm-package-quality](http://npm.packagequality.com/shield/wss.svg?style=flat-square&colorB=44CC11)](http://packagequality.com/#?package=wss) [![npm-node-version](https://img.shields.io/badge/node-6%2B-blue.svg?style=flat-square)](https://nodejs.org/docs/v6.0.0/api) [![npm-version](https://img.shields.io/npm/v/wss.svg?style=flat-square&colorB=007EC6)](https://www.npmjs.com/package/wss) [![npm-license](https://img.shields.io/npm/l/wss.svg?style=flat-square&colorB=007EC6)](https://spdx.org/licenses/MIT)
+[![travis][travis-image]][travis-url] [![npm-dependencies][npm-dependencies-image]][npm-dependencies-url] [![standard-js][standard-js-image]][standard-js-url] [![npm-package-quality][npm-package-quality-image]][npm-package-quality-url] [![npm-node-version][npm-node-version-image]][npm-node-version-url] [![npm-version][npm-version-image]][npm-version-url] [![npm-license][npm-license-image]][npm-license-url]
 
 wrapper built upon [ws](https://www.npmjs.org/package/ws) module that provides standard server api only.
 
@@ -62,3 +62,18 @@ throws if no server is given.
 
 ### wss.createServer([options[, connectionListener]])
 returns a new `ws.Server` based on given options and connectionListener. underlaying `https` server is created when `tls` options have been provided as of`tls.createServer()`, otherwise it will fallback to a `http` implementation. the connectionListener is a function which is automatically added to the `connection` event.
+
+[travis-image]: https://img.shields.io/travis/ivoputzer/wss.svg?style=flat-square
+[travis-url]: https://travis-ci.org/ivoputzer/wss
+[npm-dependencies-image]: https://img.shields.io/badge/dependencies-up%20to%20date-blue.svg?style=flat-square&colorB=44CC11
+[npm-dependencies-url]: package.json
+[standard-js-image]: https://img.shields.io/badge/coding%20style-standard-brightgreen.svg?style=flat-square
+[standard-js-url]: http://standardjs.com/
+[npm-package-quality-image]: http://npm.packagequality.com/shield/wss.svg?style=flat-square&colorB=44CC11
+[npm-package-quality-url]: http://packagequality.com/#?package=wss
+[npm-node-version-image]: https://img.shields.io/badge/node-6%2B-blue.svg?style=flat-square
+[npm-node-version-url]: https://nodejs.org/docs/v6.0.0/api
+[npm-version-image]: https://img.shields.io/npm/v/wss.svg?style=flat-square&colorB=007EC6
+[npm-version-url]: https://www.npmjs.com/package/wss
+[npm-license-image]: https://img.shields.io/npm/l/wss.svg?style=flat-square&colorB=007EC6
+[npm-license-url]: https://spdx.org/licenses/MIT

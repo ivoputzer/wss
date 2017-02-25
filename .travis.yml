@@ -15,6 +15,5 @@ deploy:
   api_key:
     secure: gyWDhVvSjq4n7QGyIv2CkA/y3WWo1AuGhArEO2pTs5lAU4OP2eBxCDoPA9xkawMDNE84iVIjsOThgOckY46f49xC5XBQQqpw7bd1iVlogAB8WzWh78xpPVPmY+VwbGA7VhD9bZr4nPhURtvP2aSL+n5a+Y0dIb0nQ39w1gDcrhY=
   on:
-    tags: true
     repo: ivoputzer/wss
     branch: master

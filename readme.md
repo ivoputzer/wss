@@ -20,8 +20,8 @@ createServer(function connectionListener (ws) {
 
 #### usage with existent server
 ```javascript
-const {createServerFrom} = require('wss')
 const {createServer} = require('http')
+const {createServerFrom} = require('wss')
 
 const http = createServer()
 createServerFrom(http, function connectionListener (ws) {

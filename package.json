@@ -1,7 +1,7 @@
 {
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com>",
   "name": "wss",
-  "description": "Wrapper made upon the well known ws module that provides server API only.",
+  "description": "wrapper built upon ws module that provides standard server api only.",
   "version": "0.0.2",
   "keywords": [
     "Hixie",
@@ -18,15 +18,17 @@
     "url": "git://github.com/ivoputzer/wss.git"
   },
   "scripts": {
-    "test": "m.test"
+    "test": "m.test",
+    "lint": "standard"
   },
   "engines": {
-    "node": ">=0.4.0"
+    "node": ">=6"
   },
   "dependencies": {
     "ws": "^2.0.3"
   },
   "devDependencies": {
+    "standard": "^8.6.0",
     "m.test": "0.0.53",
     "pem": "^1.9.4"
   },

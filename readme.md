@@ -1,127 +1,62 @@
 # wss
-wrapper made upon the well known [ws module](https://www.npmjs.org/package/ws) that provides server api only.
+wrapper built upon the well known [ws module](https://www.npmjs.org/package/ws) that provides server api only.
 
-
-#### usage without http server
+#### usage with server creation
 
 ```javascript
 const {createServer} = require('wss')
 
-createServer(function connectionListener(websocket) {
-  websocket.send('welcome!')
-  websocket.on('message', (data) => {
-    websocket.send(data.toString()) // echo-server
+createServer(function connectionListener (ws) {
+  ws.send('welcome!')
+  ws.on('message', (data) => {
+    ws.send(data.toString()) // echo-server
   })
-}).listen(8080, function () {
-  const {address, family, port} = this.address()
-  console.log('listening on http://%s:%d (%s)', /::/.test(address) ? '0.0.0.0' : address, port, family)
+})
+.listen(8080, function () {
+  const {address, port} = this.address() // this is the http[s].Server
+  console.log('listening on http://%s:%d (%s)', /::/.test(address) ? '0.0.0.0' : address, port)
 })
 ```
-- [] how do i pass options to ws.Server
 
-      maxPayload: 100 * 1024 * 1024,
-      perMessageDeflate: true,
-      handleProtocols: null,
-      clientTracking: true,
-      verifyClient: null,
-      noServer: false,
-      backlog: null, // use default (511 as implemented in net.js)
-      ?? server: null,
-      // host: null,
-      ?? path: null,
-      // port: null
+#### usage with existent server
+```javascript
+const {createServerFrom} = require('wss')
+const {createServer} = require('http')
 
+const http = createServer()
+createServerFrom(http, function connectionListener (ws) {
+  ws.send('welcome!')
+  ws.on('message', (data) => {
+    ws.send(data.toString()) // echo-server
+  })
+})
+http.listen(8080)
+```
 
-this._server = http.createServer((req, res) => {
-        const body = http.STATUS_CODES[426];
+### wss
+the `ws.Server` object is inherited from [ws](http://npmjs.org/ws)
 
-        res.writeHead(426, {
-          'Content-Length': body.length,
-          'Content-Type': 'text/plain'
-        });
-        res.end(body);
-      });
-      this._server.allowHalfOpen = false;
-      this._server.listen(options.port, options.host, options.backlog, callback);
+### wss.prototype.close([callback])
+stops the server from accepting new connections.
 
+### wss.prototype.listen(handle[, callback])
+the `handle` object can be set to either a server or socket (anything with an underlying _handle member), or a `{fd}` object. This function is asynchronous. callback will be added as a listener for the `listening` event.
 
-- [] how do i start createServer over SSL
+### wss.prototype.listen(path[, callback])
+start a unix socket server listening for connections on the given path. this function is asynchronous. callback will be added as a listener for the `listening` event.
 
-## examples
-    const wss = require('wss')
+### wss.prototype.listen([port[, hostname[, backlog[, callback]]]])
+begin accepting connections on the specified port and hostname. if the hostname is omitted, the server will accept connections on any ipv6 address (::) when ipv6 is available, or any ipv4 address (0.0.0.0) otherwise. omit the port argument, or use a port value of 0, to have the operating system assign a random port, which can be retrieved by using server.address().port after the `listening` event has been emitted.
 
-    const http = require('http')
-    const https = require('https')
+to listen to a unix socket, supply a filename instead of port and hostname.
 
-    [http, https].createServer([options [, requestListener])
-      .listen()
+backlog is the maximum length of the queue of pending connections. The actual length will be determined by your OS through sysctl settings such as `tcp_max_syn_backlog` and somaxconn on linux. The default value of this parameter is `511`. This function is asynchronous. `callback` will be added as a listener for the `listening` event.
 
-    [http, https].createServer([options])
-      .on('request', requestListener)
-      .listen()
+Note: The server.listen() method may be called multiple times. Each subsequent call will re-open the server using the provided options.
 
-    wss.createServer(connectionListener)
-      => http.Server
-        .listen()
+### wss.createServerFrom(server=http.Server|https.Server)
+returns a new `ws.Server` based on given web server object.
+throws if no server is given.
 
-    wss.createServer(connectionListener)
-      => http.Server
-        .listen()
-
-    wss.createCluster()
-      => http.Server
-        .listen()
-
-    /////////////////// legacy api /////////////////
-
-    wss.createServerFrom(server)
-      => ws.Server (WebSocketServer)
-        .on('connection', connectionListener)
-
-    .createServerFrom(net.Server, connectionListener)
-      => ws.Server (WebSocketServer)
-
-    .createServerFrom(net.Server)
-      => ws.Server // .name WebSocketServer
-        .on('connection', connectionListener)
-
-
-
-    function requestListener (req, res) {
-      res.sendStatus(200, {})
-      res.end('ciao')
-    }
-
-    function connectionListener (ws) {
-      ws.send()
-      ws.broadcast() // wss-connect middleware?
-      ws.on('open', Function.prototype)
-      ws.on('close', Function.prototype)
-      ws.on('message', Function.prototype)
-    }
-// simple usage
-// const wss = require('wss')
-// wss.createServer(function connectionListener (ws) {
-//   ws.send(String.prototype)
-//   ws.broadcast(String.prototype)
-//   ws.on('message', (data) => {
-//     ws.send(data.toString())
-//   })
-// })
-// .listen(8080, function () {
-//   console.log(this.address())
-// })
-
-// wrap another http/s webserver
-// const http = require('http').createServer(function (req, res) {
-//   let status = 'running'
-//   res.writeHead(200, {'content-type': 'text/plain'})
-//   res.end(JSON.stringify({status}))
-// }).listen(8080)
-
-// require('wss').createServerFrom(http, )
-
-// const http = require('http').createServer(requestListener)
-// require('wss')
-//   .createServerFrom(http)
-//   .on('connection', connectionListener)
+### wss.createServer([options[, connectionListener]])
+returns a new `ws.Server` based on given options and connectionListener. underlaying `https` server is created when `tls` options have been provided as of`tls.createServer()`, otherwise it will fallback to a `http` implementation. the connectionListener is a function which is automatically added to the `connection` event.

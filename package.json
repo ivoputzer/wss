@@ -1,6 +1,6 @@
 {
   "name": "wss",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "wrapper built upon ws module that provides standard server api only.",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
   "homepage": "https://github.com/ivoputzer/wss#readme",

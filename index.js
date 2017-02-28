@@ -52,17 +52,3 @@ function createServer (options = {}, connectionListener) {
     res.end(status)
   }
 }
-
-// module.exports.createCluster = (...args) => {
-//   return function createClusterFor (argument) {
-//     // body...
-//   }.call(this)
-// //   const {options, connectionListener} = parse(args)
-// //   function parse (args) {
-// //     return {
-// //       options,
-// //       connectionListener () {
-// //       }
-// //     }
-// //   }
-// }

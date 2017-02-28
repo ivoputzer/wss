@@ -16,7 +16,7 @@ test('module.exports.prototype', function () {
       })
     })
 
-    test('is `false` when ws.Server', function (done) {
+    test('is `false` when ws.Server is not listening', function (done) {
       Server.createServer().listen(0, function () {
         this.close(() => {
           equal(this.listening, false)

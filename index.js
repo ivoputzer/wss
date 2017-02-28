@@ -22,10 +22,9 @@ Server.prototype.close = function (fn = Function.prototype) {
 module.exports = Server // v 1
 module.exports.createServerFrom = createServerFrom
 module.exports.createServer = createServer
-
-function createServerFrom (server, connectionListener) {
+function createServerFrom (server, connectionListener, options = {}) {
   if (typeof server === 'undefined') throw new Error('must provide server')
-  const wss = new Server({server})
+  const wss = new Server(Object.assign(options, {server}))
   return connectionListener
     ? wss.on('connection', connectionListener)
     : wss

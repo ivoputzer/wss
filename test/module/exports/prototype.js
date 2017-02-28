@@ -8,6 +8,22 @@ test('module.exports.prototype', function () {
     test('is boolean', function () {
       equal(typeof Server.prototype.listening, 'boolean')
     })
+
+    test('is `true` when ws.Server is listening', function () {
+      Server.createServer().listen(0, function (done) {
+        equal(this.listening, true)
+        this.close(done)
+      })
+    })
+
+    test('is `false` when ws.Server', function (done) {
+      Server.createServer().listen(0, function () {
+        this.close(() => {
+          equal(this.listening, false)
+          done()
+        })
+      })
+    })
   })
 
   test('.listen()', function () {

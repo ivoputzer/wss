@@ -8,13 +8,16 @@ Server.prototype.listen = function (...args) {
       this.listening = true
     })
 }
-Server.prototype.close = function (...args) {
+Server.prototype.close = function (fn = Function.prototype) {
   if (this.clients) {
     for (const client of this.clients) client.terminate()
   }
   this._ultron.destroy()
   this._ultron = null
-  return this._server.close(...args)
+  return this._server.close((...args) => {
+    this.listening = false
+    fn(...args)
+  })
 }
 module.exports = Server // v 1
 module.exports.createServerFrom = createServerFrom

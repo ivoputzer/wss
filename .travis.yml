@@ -23,15 +23,15 @@ jobs:
       provider: npm
       email: ivo.putzer@gmail.com
       api_key:
-        secure: gyWDhVvSjq4n7QGyIv2CkA/y3WWo1AuGhArEO2pTs5lAU4OP2eBxCDoPA9xkawMDNE84iVIjsOThgOckY46f49xC5XBQQqpw7bd1iVlogAB8WzWh78xpPVPmY+VwbGA7VhD9bZr4nPhURtvP2aSL+n5a+Y0dIb0nQ39w1gDcrhY=
+        secure: QfM6/3XM0YGbzEwo/3Bdbpg2njXPGH5qhS+FohWxO1ZcSjLbZnAowmalMSTmcwL4lKkzF5bfU0zJ3J6p++Om04CPLlIDXbqKw9XpnqcwoCR147bBBwRbIxE5L0Zd9i14Z4Qb9WHJSsMzeB12nnUvaDeyQ+IK3kaMiYyGP1z3zS0=
       on:
         repo: ivoputzer/wss
         branch: master
       after_deploy:
-        - git config --global user.email "travis@travis-ci.org"
-        - git config --global user.name "Travis CI"
-        - git tag -a $(npm run version) -m v$(npm run version)
-        - git push origin $(npm run version)
+      - git config --global user.email "travis@travis-ci.org"
+      - git config --global user.name "Travis CI"
+      - git tag -a $(npm run version) -m v$(npm run version)
+      - git push origin $(npm run version)
   allow_failures:
-    - node_js: 5
-    - node_js: 4
+  - node_js: 5
+  - node_js: 4

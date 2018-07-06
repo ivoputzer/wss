@@ -1,5 +1,7 @@
 node_modules/
 test/
-lib/
 
-*.todo
+todo.md
+
+*.log
+.travis.yml

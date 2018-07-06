@@ -2,7 +2,8 @@ node_modules/
 coverage/
 lib/
 
+todo.md
+
 *.DS_Store
 *.log
 *.tgz
-*.todo

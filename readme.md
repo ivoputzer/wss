@@ -49,7 +49,7 @@ the `ws.Server` object is inherited from [ws](http://npmjs.org/ws)
 stops the server from accepting new connections.
 
 ### wss.prototype.listen(handle[, callback])
-the `handle` object can be set to either a server or socket (anything with an underlying _handle member), or a `{fd}` object. This function is asynchronous. callback will be added as a listener for the `listening` event.
+the `handle` object can be set to either a server or socket (anything with an underlying _handle_ member), or a `{fd}` object. This function is asynchronous. callback will be added as a listener for the `listening` event.
 
 ### wss.prototype.listen(path[, callback])
 start a unix socket server listening for connections on the given path. this function is asynchronous. callback will be added as a listener for the `listening` event.

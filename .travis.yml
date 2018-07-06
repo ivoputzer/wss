@@ -1,21 +1,32 @@
 language: node_js
+install: npm install --no-optional
 git:
   depth: 1
 node_js:
-- 7.5
-- 7.0
-- 6.9
-- 6.0
-before_script:
-- npm run lint -s
-script:
-- npm run test -s
-deploy:
-  provider: npm
-  skip_cleanup: false
-  email: ivo.putzer@gmail.com
-  api_key:
-    secure: gyWDhVvSjq4n7QGyIv2CkA/y3WWo1AuGhArEO2pTs5lAU4OP2eBxCDoPA9xkawMDNE84iVIjsOThgOckY46f49xC5XBQQqpw7bd1iVlogAB8WzWh78xpPVPmY+VwbGA7VhD9bZr4nPhURtvP2aSL+n5a+Y0dIb0nQ39w1gDcrhY=
-  on:
-    repo: ivoputzer/wss
-    branch: master
+- 10
+- 9
+- 8
+- 7
+- 6
+- 5
+- 4
+jobs:
+  include:
+  - stage: coverage
+    install: npm install istanbul coveralls
+    script: npm run coverage
+    after_success: cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
+  - stage: deploy
+    install: skip
+    script: skip
+    deploy:
+      provider: npm
+      email: ivo.putzer@gmail.com
+      api_key:
+        secure: gyWDhVvSjq4n7QGyIv2CkA/y3WWo1AuGhArEO2pTs5lAU4OP2eBxCDoPA9xkawMDNE84iVIjsOThgOckY46f49xC5XBQQqpw7bd1iVlogAB8WzWh78xpPVPmY+VwbGA7VhD9bZr4nPhURtvP2aSL+n5a+Y0dIb0nQ39w1gDcrhY=
+      on:
+        repo: ivoputzer/wss
+        branch: master
+  allow_failures:
+    - node_js: 5
+    - node_js: 4

@@ -20,7 +20,11 @@
   },
   "scripts": {
     "test": "m.test",
-    "lint": "standard"
+    "pretest": "standard",
+    "coverage": "node --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test"
+  },
+  "optionalDependencies": {
+    "istanbul": "^0.4.5"
   },
   "engines": {
     "node": ">=6"

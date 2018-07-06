@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "standard": "^8.6.0",
-    "m.test": "0.0.53",
+    "m.test": "0.0.57",
     "pem": "^1.9.4"
   },
   "license": "MIT",

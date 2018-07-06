@@ -21,7 +21,7 @@
   "scripts": {
     "test": "m.test",
     "pretest": "standard",
-    "coverage": "node --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test"
+    "coverage": "node --require ./node_modules/m.test/global.js ./node_modules/istanbul/lib/cli.js cover --print detail test/.istanbul.js"
   },
   "optionalDependencies": {
     "istanbul": "^0.4.5"

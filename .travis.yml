@@ -27,6 +27,11 @@ jobs:
       on:
         repo: ivoputzer/wss
         branch: master
+      after_deploy:
+        - git config --global user.email "travis@travis-ci.org"
+        - git config --global user.name "Travis CI"
+        - git tag -a $(npm run version) -m v$(npm run version)
+        - git push origin $(npm run version)
   allow_failures:
     - node_js: 5
     - node_js: 4

@@ -1,7 +1,6 @@
 language: node_js
 install: npm install --no-optional
-git:
-  depth: 1
+git: depth: 1
 node_js:
 - 10
 - 9
@@ -12,11 +11,11 @@ node_js:
 - 4
 jobs:
   include:
-  - stage: Coverage
+  - stage: coverage
     install: npm install istanbul coveralls
     script: npm run coverage
     after_success: cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
-  - stage: Npm Release
+  - stage: deploy
     install: skip
     script: skip
     deploy:
@@ -25,7 +24,7 @@ jobs:
       api_key:
         secure: QfM6/3XM0YGbzEwo/3Bdbpg2njXPGH5qhS+FohWxO1ZcSjLbZnAowmalMSTmcwL4lKkzF5bfU0zJ3J6p++Om04CPLlIDXbqKw9XpnqcwoCR147bBBwRbIxE5L0Zd9i14Z4Qb9WHJSsMzeB12nnUvaDeyQ+IK3kaMiYyGP1z3zS0=
       on:
-        repo: ivoputzer/wss
+        repo: $TRAVIS_REPO_SLUG
         branch: master
   allow_failures:
   - node_js: 5

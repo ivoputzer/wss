@@ -31,7 +31,7 @@ jobs:
     - git config --global user.email "travis@travis-ci.org"
     - git config --global user.name "Travis CI"
     - git tag -a $(npm run -s version) -m v$(npm run -s version)
-    - git push origin $(npm run -s version)
+    - git push git@github.com:ivoputzer/wss.git $(npm run -s version)
   allow_failures:
   - node_js: 5
   - node_js: 4
